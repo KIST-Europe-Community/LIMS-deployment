@@ -1,20 +1,44 @@
 version: '2'
 
 services:
-  reverse:
-    image: reverse:latest
+  reverse-proxy:
+    image: reverse-proxy:latest
     build: 
-      dockerfile: Dockerfile-reverse
+      dockerfile: Dockerfile-reverse-proxy
       context: .
     ports:
       - "80:80"
       - "443:443"
-
   
   web:
     image: web:latest
     build:
-      dockerfile: Dockerfile-web
-      context: ~/
+      dockerfile: Dockerfile
+      context: LIMS-web-client
     ports:
       - "3000:3000"
+
+  api:
+    image: api:latest
+    build:
+      dockerfile: Dockerfile-api
+      context: LIMS-api-server
+    ports:
+      - "8080:8080"
+
+  batch:
+    image: batch:latest
+    build:
+      dockerfile: Dockerfile-batch
+      context: LIMS-api-server
+
+  db:
+    image: postgres:16.3-bullseye
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: "D3mabc^kahFg0a9)35^42vasfG"
+    volumes:
+      - ~/volume/pgdata:/var/lib/postgresql/data
+
