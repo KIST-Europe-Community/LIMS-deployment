@@ -1,6 +1,0 @@
-[submodule "LIMS-api-server"]
-	path = LIMS-api-server
-	url = git@github.com:KIST-Europe-Community/LIMS-api-server.git
-[submodule "LIMS-web-client"]
-	path = LIMS-web-client
-	url = git@github.com:KIST-Europe-Community/LIMS-web-client.git
