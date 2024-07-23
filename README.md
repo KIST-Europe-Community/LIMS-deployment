@@ -1,22 +1,70 @@
-## Setup in Your Local Computer
+# Getting started
+
+## Requesting the privilege
+- `ssh-keygen -t rsa -b 4096 -C "Your email@kist-europe.de"`
+It will be generating two keys, public and private.
+It will be asking you the password, as well as the location that you want to store the both keys. Store them whatever you want with a identifiable name. For example, passing a location as `/Users/hwanseok/.ssh/lims-deployment` will make the following two keys.
+1. `/Users/hwanseok/.ssh/lims-deployment.pub`(public)
+2. `/Users/hwanseok/.ssh/lims-deployment`(private)
+Then pass your public key to the admin of the remote server so they can append your public key onto the `~/.ssh/authorized_keys` file.
+
+## Set ssh config
+
+- To access deployment server quickly, append this in your ~/.ssh/config file. Make sure you set the following configurations properly. IdentityFile must be the path of your private key.
+
 ```shell
-git clone --recurse-submodules git@github.com:KIST-Europe-Community/LIMS-deployment.git
+Host deploy
+    HostName 172.16.68.13
+    User LIMS_SERVER
+    Port 29
+    IdentityFile ~/.ssh/lims-deployment
 ```
 
-## To Update Submodules
+## Deployment
 
-### On the Local Computer
+### Access to the Remote Server
 ```shell
-git submodules update --remote
+# This will connect you to the remote server shell terminal.
+# Make sure you are connected to SCG(or desired remote server network) network.
+ssh deploy 
 ```
 
-### On the Remote Server
-
+### General Procedure
 ```shell
-sh ./deploy-key-update.sh
+cd LIMS-deployment
+
+# This will build and start all the services specified in the `docker-compose.yml` file.
+docker-compose up -d
+
 ```
 
-**But why??**
+### When You Need to Build again
+When you change client, server code and push to the respective repositories. Then you have to pull them respectively.
+Navigate to each repositories and manually pull codes.
+```shell
+cd LIMS-deployment
+cd LIMS-api-server # or cd LIMS-web-client
+git pull
+cd ..
+```
 
-Due to the limitation of a deploy key, we should update each submodules respectively. [See this workaround.](https://stackoverflow.com/questions/41955700/multiple-ssh-keys-with-git-submodules)
+### When You changed Build Process
+- It is obvious that you just pull the deployment repo and run whatever you want.
+```shell
+cd LIMS-deployment
+git pull
+# ...Whatever
+```
 
+### To See Logs on the Containers
+
+```shell
+# Check the containers' status.
+# If they're exited, then it means there are some problems.
+# Then copy the desired container's name.
+docker ps -a
+
+
+docker logs -t --since 30m {container name} 
+# It will print logs of {container} since 30minutes ago.
+```
