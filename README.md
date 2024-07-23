@@ -46,6 +46,13 @@ cd LIMS-deployment
 cd LIMS-api-server # or cd LIMS-web-client
 git pull
 cd ..
+
+# Rebuild all services
+# relatively takes longer time.
+docker-compose up -d --build
+
+# Rebuild individual services
+docker-compose up -d --build api # or {batch, web, db, reverse-proxy}. Please take a look into `docker-compose.yml` file for further view.
 ```
 
 ### When You changed Build Process
@@ -61,10 +68,10 @@ git pull
 ```shell
 # Check the containers' status.
 # If they're exited, then it means there are some problems.
-# Then copy the desired container's name.
+# Then copy the desired container's name.s
 docker ps -a
 
 
-docker logs -t --since 30m {container name} 
+docker logs -t -f --since 30m {container name} 
 # It will print logs of {container} since 30minutes ago.
 ```
