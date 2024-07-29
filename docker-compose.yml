@@ -50,3 +50,14 @@ services:
     volumes:
       - ~/volume/pgdata:/var/lib/postgresql/data
 
+  storage:
+    image: minio/minio
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    environment:
+      MINIO_ROOT_USER: root
+      MINIO_ROOT_PASSWORD: "aRKK(!)_AAL4paoDAKSFN381"
+    volumes:
+      - ~/volume/minio/data:/data
+    command: server /data --console-address ":9001"
