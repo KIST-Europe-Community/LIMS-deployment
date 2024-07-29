@@ -3,9 +3,9 @@
 ## Requesting the privilege
 - `ssh-keygen -t rsa -b 4096 -C "Your email@kist-europe.de"`
 It will be generating two keys, public and private.
-It will be asking you the password, as well as the location that you want to store the both keys. Store them whatever you want with a identifiable name. For example, passing a location as `/Users/hwanseok/.ssh/lims-deployment` will make the following two keys.
-1. `/Users/hwanseok/.ssh/lims-deployment.pub`(public)
-2. `/Users/hwanseok/.ssh/lims-deployment`(private)
+It will be asking you the password, as well as the location that you want to store the both keys. Store them whatever you want with a identifiable name. For example, passing a location as `~/.ssh/lims-deployment` will make the following two keys.
+1. `~/.ssh/lims-deployment.pub`(public)
+2. `~/.ssh/lims-deployment`(private)
 Then pass your public key to the admin of the remote server so they can append your public key onto the `~/.ssh/authorized_keys` file.
 
 ## Set ssh config
@@ -75,3 +75,6 @@ docker ps -a
 docker logs -t -f --since 30m {container name} 
 # It will print logs of {container} since 30minutes ago.
 ```
+
+### ETC
+- For future 
