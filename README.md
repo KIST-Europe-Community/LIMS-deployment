@@ -52,7 +52,7 @@ cd ..
 docker-compose up -d --build
 
 # Rebuild individual services
-docker-compose up -d --build api # or {batch, web, db, reverse-proxy}. Please take a look into `docker-compose.yml` file for further view.
+docker-compose up -d --build api # or {web, db, reverse-proxy}. Please take a look into `docker-compose.yml` file for further view.
 ```
 
 ### When You changed Build Process
