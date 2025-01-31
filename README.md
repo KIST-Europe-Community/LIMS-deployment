@@ -14,7 +14,7 @@ Then pass your public key to the admin of the remote server so they can append y
 
 ```shell
 Host deploy
-    HostName 172.16.68.13
+    HostName 172.16.68.10
     User LIMS_SERVER
     Port 29
     IdentityFile ~/.ssh/lims-deployment
